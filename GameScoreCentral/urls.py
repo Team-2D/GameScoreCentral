@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 from GameScoreCentral import views
-# Custom apps
 
 
 urlpatterns = [
@@ -26,5 +25,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('', views.home, name='home'),
     path('account/', include('account.urls')),
+    path('game/', include('game.urls')),
     path('admin/', admin.site.urls),
 ]
