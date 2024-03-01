@@ -24,5 +24,6 @@ from GameScoreCentral import views
 urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
+    path('account/', include('account.urls')),
     path('admin/', admin.site.urls),
 ]
