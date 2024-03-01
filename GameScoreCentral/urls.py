@@ -23,7 +23,7 @@ from GameScoreCentral import views
 urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
-    path('', views.home, name='home'),
+    path('', include('category.urls')),
     path('account/', include('account.urls')),
     path('game/', include('game.urls')),
     path('admin/', admin.site.urls),
