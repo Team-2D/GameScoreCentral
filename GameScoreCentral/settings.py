@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'account',
     'game',
+    'category',
 ]
 
 MIDDLEWARE = [
