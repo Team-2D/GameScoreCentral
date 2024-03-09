@@ -30,7 +30,7 @@ def addNewGame(request):
         form = GameForm()
     return render(request, 'game/addNewGame.html', {'form': form})
 
-@login_required 
+
 def addReview(request):
     game_id = request.GET.get('game')   #get 'game' parameter from URL
     game = get_object_or_404(Game, id=game_id)  #get Game or return 404 error
@@ -39,8 +39,9 @@ def addReview(request):
         form = GameReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
+            if request.user.is_authenticted:            #if user isn't signed in: created_by is null
+                review.created_by = request.user
             review.game = game   #set game to one from url
-            review.created_by = request.user
             #created_at is automatically set
             review.save()
             return redirect('game:viewGame', id=game.id)
