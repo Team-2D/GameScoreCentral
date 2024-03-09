@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from game.models import GameReview
-from .forms import EditProfileFrom
+from .forms import EditProfileForm
 
 # Create your views here.
 
@@ -33,10 +33,10 @@ def viewProfile(request, username):
 @login_required
 def editProfile(request):
     if request.method == 'POST':
-        form = EditProfileFrom(request.POST, request.FILES, instance=request.user)
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
         if form.us_valid():
             form.save()
             return redirect('profile')
     else:
-        form = EditProfileFrom(instance=request.user)
+        form = EditProfileForm(instance=request.user)
     return render(request, 'account/editProfile.html', {'form':form})

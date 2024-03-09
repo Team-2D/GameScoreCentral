@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import GameForm
+from .forms import GameForm, GameReviewForm
+from .models import Game, GameReview
 
 
 # Create your views here.
@@ -26,3 +27,22 @@ def addNewGame(request):
     else:
         form = GameForm()
     return render(request, 'game/addNewGame.html', {'form': form})
+
+@login_required 
+def addReview(request):
+    game_id = request.GET.get('game')   #get 'game' parameter from URL
+    game = get_object_or_404(Game, id=game_id)  #get Game or return 404 error
+    
+    if request.method == 'POST':
+        form = GameReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.game = game   #set game to one from url
+            review.created_by = request.user
+            #created_at is automatically set
+            review.save()
+            return redirect('viewGame', gameid=game.id)
+    else:
+        form = GameReviewForm()
+    context_dict = {'form': form, 'game': game}
+    return render(request, 'game/addNewGame.html', context_dict)
