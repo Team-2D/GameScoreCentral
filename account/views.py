@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
 from .models import CustomUser
 from game.models import GameReview
+from .forms import EditProfileFrom
 
 # Create your views here.
 
@@ -21,6 +21,7 @@ def profilePage(request):
 
 
 def viewProfile(request, username):
+    #viewing other profiles
     user_info = get_object_or_404(CustomUser, username=username)
     user_reviews = GameReview.objects.filter(created_by=user_info)
 
@@ -29,7 +30,13 @@ def viewProfile(request, username):
 
     return render(request, 'account/viewProfile.html', context_dict)
 
-
+@login_required
 def editProfile(request):
-    # editing own profile
-    return render(request, 'account/editProfile.html')
+    if request.method == 'POST':
+        form = EditProfileFrom(request.POST, request.FILES, instance=request.user)
+        if form.us_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = EditProfileFrom(instance=request.user)
+    return render(request, 'account/editProfile.html', {'form':form})
