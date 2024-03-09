@@ -14,3 +14,9 @@ class GameReviewForm(forms.ModelForm):
     class Meta:
         model = GameReview
         fields = ('rating', 'comment',)
+
+
+class GameSearchForm(forms.Form):
+    title = forms.CharField(required=False)
+    game_studio = forms.CharField(required=False)
+    genre = forms.CharField(required=False)

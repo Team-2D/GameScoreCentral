@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import GameForm, GameReviewForm
+from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
 
 
@@ -76,3 +76,20 @@ def deleteReview(request, review_id):
     else:
         return redirect('game:viewGame')                            #if doesn't have the authority to delete then redirect them to this
     
+
+
+
+def searchGames(request):
+    games = Game.objects.all()
+    if 'search' in request.GET:
+        form = GameSearchForm(request.GET)
+        if form.is_valid():
+            if form.cleaned_data['title']:
+                games.filter(title__icontains=form.cleaned_data['title'])       #icontains checks if any entries in the database contain the seached message
+            if form.cleaned_data['game_studio']:
+                games.filter(game_studio__icontains=form.cleaned_data['game_studio'])
+            if form.cleaned_data['genre']:
+                games.filter(genre__icontains=form.cleaned_data)
+    else:
+        form = GameSearchForm()
+    return render(request, 'game/search_games.html', {'games': games})
