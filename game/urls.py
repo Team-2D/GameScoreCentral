@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:id>/', views.viewGame, name='viewGame'),
     path('new/', views.addNewGame, name='addNewGame'),
     path('addreview', views.addReview, name='addReview'),
+    path('editReview/<int:review_id>/', views.EditReview, name='editReview')
 ]

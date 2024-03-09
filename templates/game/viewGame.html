@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Viewing game {{ id }}</title>
+    <title>Viewing game {{ game.id }}</title>
   </head>
   <body>
     <a href="{% url 'add_review' %}?game={{ game.id }}">Write a Review</a>
-    Viewing game {{ id }}
+    <a href="{% url 'game:editReview' review_id=review.id %}?game={{ review.game.id }}">Edit this review</a>
+    <!-- not sure if this will work properly yet -->
+    Viewing game {{ game.id }}
   </body>
 </html>
