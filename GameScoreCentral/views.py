@@ -1,9 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .forms import CustomUserCreationForm
 
 
 def signin(request):
-    return render(request, 'GameScoreCentral/signin.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                return redirect('')                 #redirect to homepage
+            else:
+                messages.error(request, 'Invalid username or password')
+    else:
+        return render(request, 'GameScoreCentral/signin.html')
 
 
 def signup(request):
-    return render(request, 'GameScoreCentral/signup.html')
+    registered = False
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)  # request.FILES is required to handle the profile_picture
+        if form.is_valid():
+            form.save()
+            registered = True
+        else:
+            print(form.errors)
+    else:
+        form = CustomUserCreationForm()
+    context={'user_form':CustomUserCreationForm,'registered':registered}
+    return render(request, 'GameScoreCentral/signup.html', context)
