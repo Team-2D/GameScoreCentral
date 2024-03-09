@@ -50,7 +50,7 @@ def addReview(request):
     return render(request, 'game/addReview.html', context_dict)
 
 @login_required
-def EditReview(request, review_id):
+def editReview(request, review_id):
     game_id = request.GET.get('game')
     review = get_object_or_404(GameReview, id=review_id, created_by=request.user)
     game = get_object_or_404(Game, id=game_id)  #get Game or return 404 error
@@ -63,3 +63,15 @@ def EditReview(request, review_id):
         form = GameReviewForm(instance=review)
     context_dict = {'form': form, 'game': game}
     return render(request, 'game/editreview.html', context_dict)
+
+
+@login_required
+def deleteReview(request, review_id):
+    review = get_object_or_404(GameReview, pk=review_id)
+    if request.user == review.created_by or request.user.is_staff:  #allows staff to remove reviews
+        game_id = review.game.id                                    #get game_id to allow redirect to game after review is deleted
+        review.delete()
+        return redirect('game:viewGame', id=game_id)
+    else:
+        return redirect('game:viewGame')                            #if doesn't have the authority to delete then redirect them to this
+    

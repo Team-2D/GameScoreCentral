@@ -9,6 +9,12 @@
     <a href="{% url 'add_review' %}?game={{ game.id }}">Write a Review</a>
     <a href="{% url 'game:editReview' review_id=review.id %}?game={{ review.game.id }}">Edit this review</a>
     <!-- not sure if this will work properly yet -->
+
+
+    {% for review in reviews %}
+    {% if user == review.created_by or user.is_staff %}
+    <a href="{% url 'game:deleteReview' review_id=review.id %}">Delete Review</a>
+    {% endif %}
     Viewing game {{ game.id }}
   </body>
 </html>
