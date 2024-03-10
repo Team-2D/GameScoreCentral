@@ -8,4 +8,4 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         #automatically handles passwords
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name','profile_picture')
+        fields = ('username', 'email', 'first_name', 'last_name','profile_picture',)
