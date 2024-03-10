@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import GameForm, GameReviewForm, GameSearchForm
@@ -7,8 +8,11 @@ from .models import Game, GameReview
 # Create your views here.
 
 
+
 def viewAllGames(request):
-    return render(request, 'game/viewAllGames.html')
+    game_list = Game.objects.all()
+    context_dict = {'game_list': game_list}
+    return render(request, 'game/viewAllGames.html', context_dict)
 
 
 def viewGame(request, id):
