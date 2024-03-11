@@ -12,7 +12,7 @@ def signin(request):
         if user:
             if user.is_active:
                 login(request,user)
-                return redirect('')                 #redirect to homepage
+                return redirect('/')                 #redirect to homepage
             else:
                 messages.error(request, 'Invalid username or password')
     else:

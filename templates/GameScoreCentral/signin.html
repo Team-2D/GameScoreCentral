@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign in</title>
-  </head>
-  <body>
-    Sign in
-  </body>
-</html>
+{% extends 'GameScoreCentral/base.html' %}
+
+{% block title_block %}
+Sign In
+{% endblock %}
+
+
+{% block body_block %}
+Sign In
+<form id="login_form" method="post" action="{% url 'signin' %}">
+  {% csrf_token %}
+  Username: <input type="text" name="username" value="" size="50" />
+  <br />
+  Password: <input type="password" name="password" value="" size="50" />
+  <br />
+  <input type="submit" value="submit" />
+</form>
+{% endblock %}
