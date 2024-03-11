@@ -93,7 +93,7 @@ def searchGames(request):
             if form.cleaned_data['game_studio']:
                 games.filter(game_studio__icontains=form.cleaned_data['game_studio'])
             if form.cleaned_data['genre']:
-                games.filter(genre__icontains=form.cleaned_data)
+                games.filter(genre__icontains=form.cleaned_data['genre'])
     else:
         form = GameSearchForm()
     return render(request, 'game/search_games.html', {'games': games})
