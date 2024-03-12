@@ -21,6 +21,7 @@ def viewGame(request, id):
     context_dict = {'game': game, 'reviews': reviews}
     return render(request, 'game/viewGame.html', context_dict)
 
+
 @login_required
 def addNewGame(request):
     if request.method == 'POST':
