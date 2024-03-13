@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser
 from game.models import GameReview
 from .forms import EditProfileForm
+from django.contrib.auth import logout
+from django.urls import reverse
 
 # Create your views here.
 
@@ -40,3 +42,9 @@ def editProfile(request):
     else:
         form = EditProfileForm(instance=request.user)
     return render(request, 'account/editProfile.html', {'form':form})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('home'))
+
