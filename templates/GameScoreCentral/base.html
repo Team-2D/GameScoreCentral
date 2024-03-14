@@ -15,6 +15,8 @@
       #darkBack {
         background-color:#251a19;
         color: #ff5eb0;
+        outline-style: solid;
+        outline-color: white;
       }
 
       #pinky {
@@ -37,6 +39,7 @@
 
       h1 {
         text-align: center;
+        font-size: 40px;
       }
 
       h5 {
@@ -47,6 +50,28 @@
         font-size: 15px;
       }
 
+      .my-search {
+        -ms-flex: 0 0 400px;
+        flex: 0 0 400px;
+    } 
+
+      .navbar-brand {
+        -ms-flex: 0 0 400px;
+        flex: 0 0 400px;
+      }
+
+
+      .nav-item {
+        -ms-flex: 0 0 150px;
+        flex: 0 0 150px;
+        flex-direction: column-reverse;
+      }
+
+      .nav-link {
+        color: white;
+      }
+
+    
 
     
 
@@ -56,17 +81,17 @@
     </style>
   </head>
   <body>
-    <nav id="darkBack" class="navbar navbar-expand-md navbar-dark fixed-top">
-      <div class="container-fluid">
+    <nav id="darkBack" class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid justify-content-evenly">
         <a class="navbar-brand w-25" id="pinky" href="/">GameScoreCentral</a>
-        <div class="collapse navbar-collapse w-50" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-0 w-100">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse w-50 justify-content-evenly" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-0 w-100 justify content-evenly">
             <li class="nav-item w-25">
-              <a class="nav-link active" aria-current="page" href="{% url 'game:viewAllGames' %}">View All Games</a>
+              <a class="nav-link" aria-current="page" href="{% url 'game:viewAllGames' %}">View All Games</a>
             </li>
-            <li class="nav-item w-50">
-
-              </li>
             {% if user.is_authenticated %}
             <li class="nav-item w-25">
               <a class="nav-link" href="{% url 'game:addNewGame' %}">Add a New Game</a>
@@ -79,18 +104,18 @@
           </ul>
       
         </div>
-        <div class="collapse navbar-collapse w-25 ml-5" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-0">
+        <div class="collapse navbar-collapse w-25 ml-5 justify-content-start" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-0 justify-content-start">
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" >Sign Out</a>
+                <a class="nav-link" aria-current="page"  href="{% url 'account:logout' %}">Sign Out</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'account:profile' %}">Profile</a>
               </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'signin' %}">Sign In</a>
+                <a class="nav-link" aria-current="page" href="{% url 'signin' %}">Sign In</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'signup' %}">Create Account</a>
@@ -103,7 +128,7 @@
     </nav>
 
     <main class="container-fluid row">
-            <div class="col pt-5 pb-5 rounded mt-5 mx-5 col-3 text-white" id= "darkBack">
+            <div class="col my-search pt-5 pb-5 rounded mt-5 mx-5 col-3 text-white" id= "darkBack">
                 <h1>Search</h1>
                 <form class="container-fluid" id="game_search_form" action="{% url 'game:searchGames' %}"> 
                     <div class="container-fluid row" id="pinky">
