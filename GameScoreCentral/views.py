@@ -11,8 +11,8 @@ def signin(request):
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
-                login(request,user)
-                return redirect('/')                 #redirect to homepage
+                login(request, user)
+                return redirect('/')  # redirect to homepage
             else:
                 messages.error(request, 'Invalid username or password')
     else:
@@ -22,13 +22,17 @@ def signin(request):
 def signup(request):
     registered = False
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)  # request.FILES is required to handle the profile_picture
+        # request.FILES is required to handle the profile_picture
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             registered = True
         else:
             print(form.errors)
+            context = {'user_form': form, 'registered': registered}
+            return render(request, 'GameScoreCentral/signup.html', context)
     else:
         form = CustomUserCreationForm()
-    context={'user_form':CustomUserCreationForm,'registered':registered}
+
+    context = {'user_form': CustomUserCreationForm, 'registered': registered}
     return render(request, 'GameScoreCentral/signup.html', context)
