@@ -1,20 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Viewing game {{ game.id }}</title>
-  </head>
-  <body>
-    <a href="{% url 'add_review' %}?game={{ game.id }}">Write a Review</a>
-    <a href="{% url 'game:editReview' review_id=review.id %}?game={{ review.game.id }}">Edit this review</a>
-    <!-- not sure if this will work properly yet -->
+{% extends 'GameScoreCentral/base.html' %} {% block title_block %} Viewing game
+{{ game.id }} {% endblock %} {% block body_block %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div style="overflow: hidden; height: 300px; width: 200px">
+        <img
+          src="{{ game.poster }}"
+          class="card-img-top img-fluid"
+          alt="{{ game.title }}"
+          style="object-fit: cover; width: 100%; height: 100%"
+        />
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="ml-4">
+        <h1>{{ game.title }}</h1>
+        <p>{{ game.description }}</p>
+        <div class="mt-2">
+          <p>Year of release: {{ game.release_data }}</p>
+          <p>Game Studio: {{ game.game_studio }}</p>
+          <p>Genre: {{ game.category }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="row mt-4">
+    <div class="col">
+      <a href="{% url 'game:addReview' game.id %}" class="btn btn-primary"
+        >Add Review</a
+      >
+    </div>
+  </div>
 
-    {% for review in reviews %}
-    {% if user == review.created_by or user.is_staff %}
-    <a href="{% url 'game:deleteReview' review_id=review.id %}">Delete Review</a>
-    {% endif %}
-    Viewing game {{ game.id }}
-  </body>
-</html>
+  <div class="row mt-4">
+    <div class="col">
+      <h2>Reviews</h2>
+      {% for review in reviews %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Review</h5>
+          <p class="card-text">{{ review.comment }}</p>
+          <p class="card-text">Rating: {{ review.rating }}</p>
+          <p class="card-text">By: {{ review.created_by }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
