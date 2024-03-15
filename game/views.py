@@ -13,7 +13,7 @@ from django.contrib.auth.models import AnonymousUser
 def viewAllGames(request):
     game_list = Game.objects.all()
     context_dict = {'game_list': game_list}
-    return render(request, 'game/viewAllGames.html', context_dict)
+    return render(request, 'game/viewAllGames.html', context_dict) # game/game/viewAllGames.html
 
 
 def viewGame(request, id):
