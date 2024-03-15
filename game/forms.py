@@ -20,4 +20,4 @@ class GameReviewForm(forms.ModelForm):
 class GameSearchForm(forms.Form):
     title = forms.CharField(required=False)
     game_studio = forms.CharField(required=False)
-    genre = forms.CharField(queryset=GameCategory.objects.all(),required=False)
+    genre = forms.ModelChoiceField(queryset=GameCategory.objects.all(),required=False)
