@@ -158,6 +158,7 @@
             <div class="col my-search pt-5 pb-5 rounded text-white" id= "darkBack">
                 <h1 id="main-title">Search</h1>
                 <form class="container-fluid" id="game_search_form" action="{% url 'game:searchGames' %}"> 
+                  <input type="hidden" name="search" value="true">
                   <div class="container-fluid row" id="pinky">
                       <div class="col-12 mb-3">
                           <h5 id="search-title"> Title </h5>

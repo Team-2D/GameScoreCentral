@@ -5,6 +5,7 @@ from django.db.models import Q
 from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
 from django.contrib.auth.models import AnonymousUser
+from category.models import GameCategory
 
 
 
@@ -86,22 +87,24 @@ def deleteReview(request, review_id):
     
 
 
-
 def searchGames(request):
     games = Game.objects.all()
+    form = GameSearchForm()
+    
     if 'search' in request.GET:
         form = GameSearchForm(request.GET)
         if form.is_valid():
             query = Q()
             if form.cleaned_data['title']:
-                query &= Q(title__icontains=form.cleaned_data['title'])       #icontains checks if any entries in the database contain the seached message
+                query &= Q(title__icontains=form.cleaned_data['title'])
             if form.cleaned_data['game_studio']:
                 query &= Q(game_studio__icontains=form.cleaned_data['game_studio'])
             if form.cleaned_data['genre']:
-                 query &= Q(category__name__icontains=form.cleaned_data['genre'].name)
+                query &= Q(category__title__icontains=form.cleaned_data['genre'])
             games = games.filter(query)
-
         else:
-            form = GameSearchForm()
-    return render(request, 'game/search_games.html', {'games': games, 'form':form})
+            print("Form Errors:", form.errors) 
+
+    
+    return render(request, 'game/search_games.html', {'games': games})
 
