@@ -46,5 +46,5 @@ def editProfile(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('home'))
+    return redirect(reverse('category:home'))
 

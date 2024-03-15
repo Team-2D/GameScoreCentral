@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ user.username }}'s Profile</title>
-  </head>
-  <body>
-    {{ user.username }}'s Profile
-  </body>
-</html>
+{% extends 'GameScoreCentral/base.html' %}
+
+{% block title_block %}
+{{ user_info.username }}'s Profile
+{% endblock %}
+
+
+{% block body_block %}
+<h1 id="main-title">User Profile</h1>
+
+<div class="container-fluid row justify-content-center">
+<div class="image-cropper col-12">
+    <img src="/media/{{ user_info.profile_picture }}" class="rounded">
+</div>
+<div class="col-12">
+<h2 style="color: #ff5eb0;text-align:center">{{ user_info.username }}</h2>
+</div>
+
+{% for review in user_reviews %}
+<div class="col-12 row pt-5 pb-5 rounded mt-1 text-white" id="darkBack">
+    <div class="col-2 image-cropper2">
+        <img src="{{ review.game.poster }}" style="max-height: 100%;width:auto;max-width:100%;height:auto">
+    </div>
+    <div class="col-8" style="color:#ff5eb0">
+        <h5><b> {{ review.game.title }}</b></h5>
+        {% with ''|center:review.rating as range %}
+        {% for _ in range %}
+        ☆
+        {% endfor %}
+        {% endwith %} <br>
+        <p style="color:white;">{{ review.comment }}</p>
+    </div>
+
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock %}

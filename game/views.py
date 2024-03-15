@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
+from django.contrib.auth.models import AnonymousUser
 
 
 
@@ -38,18 +39,18 @@ def addNewGame(request):
     return render(request, 'game/addNewGame.html', {'form': form})
 
 
-def addReview(request):
-    game_id = request.GET.get('game')   #get 'game' parameter from URL
-    game = get_object_or_404(Game, id=game_id)  #get Game or return 404 error
+def addReview(request, id):
+    game = get_object_or_404(Game, id=id)
     
     if request.method == 'POST':
         form = GameReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            if request.user.is_authenticted:            #if user isn't signed in: created_by is null
+            if isinstance(request.user, AnonymousUser):
+                review.created_by = None
+            else:
                 review.created_by = request.user
-            review.game = game   #set game to one from url
-            #created_at is automatically set
+            review.game = game
             review.save()
             return redirect('game:viewGame', id=game.id)
     else:
@@ -97,8 +98,8 @@ def searchGames(request):
             if form.cleaned_data['game_studio']:
                 query &= Q(game_studio__icontains=form.cleaned_data['game_studio'])
             if form.cleaned_data['genre']:
-                query &= Q(category__name__icontains=form.cleaned_data['category'].name)
+                 query &= Q(category__name__icontains=form.cleaned_data['category'].name)
             games = games.filter(query)
-    else:
-        form = GameSearchForm()
-    return render(request, 'game/search_games.html', {'games': games})
+
+            games.filter(genre__icontains=form.cleaned_data['genre'])
+
