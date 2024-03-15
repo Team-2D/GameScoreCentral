@@ -1,5 +1,6 @@
 from django import forms
 from .models import Game, GameReview
+from category.models import GameCategory
 
 class GameForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea, max_length=500)
@@ -19,4 +20,4 @@ class GameReviewForm(forms.ModelForm):
 class GameSearchForm(forms.Form):
     title = forms.CharField(required=False)
     game_studio = forms.CharField(required=False)
-    genre = forms.CharField(required=False)
+    genre = forms.CharField(queryset=GameCategory.objects.all(),required=False)

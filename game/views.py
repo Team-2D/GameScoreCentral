@@ -1,8 +1,10 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
+
 
 
 # Create your views here.
@@ -89,12 +91,14 @@ def searchGames(request):
     if 'search' in request.GET:
         form = GameSearchForm(request.GET)
         if form.is_valid():
+            query = Q()
             if form.cleaned_data['title']:
-                games.filter(title__icontains=form.cleaned_data['title'])       #icontains checks if any entries in the database contain the seached message
+                query &= Q(title__icontains=form.cleaned_data['title'])       #icontains checks if any entries in the database contain the seached message
             if form.cleaned_data['game_studio']:
-                games.filter(game_studio__icontains=form.cleaned_data['game_studio'])
+                query &= Q(game_studio__icontains=form.cleaned_data['game_studio'])
             if form.cleaned_data['genre']:
-                games.filter(genre__icontains=form.cleaned_data)
+                query &= Q(category__name__icontains=form.cleaned_data['category'].name)
+            games = games.filter(query)
     else:
         form = GameSearchForm()
     return render(request, 'game/search_games.html', {'games': games})
