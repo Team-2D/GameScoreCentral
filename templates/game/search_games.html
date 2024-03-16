@@ -5,4 +5,7 @@ Search games
 {% endblock %}
 
 {% block body_block %}
+{%for game in games %}
+{{game.title}}
+{% endfor %}
 {% endblock %}
