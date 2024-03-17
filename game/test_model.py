@@ -13,9 +13,11 @@ class TestGameModel(TestCase):
             username='testName',
             password='testPass'
         )
+
         self.category = GameCategory.objects.create(
             title='testCategory'
         )
+
         self.game = Game.objects.create(
             title='testcategory',
             description='description',
@@ -25,6 +27,7 @@ class TestGameModel(TestCase):
             category=self.category,
             posted_by=self.user,
         )
+
     # 测试类销货执行的
     def tearDown(self):
         self.user.delete()
@@ -32,7 +35,9 @@ class TestGameModel(TestCase):
         self.game.delete()
     #运行得时候执行的
     def test_game_model(self):
+        print("=======test Start==========")
         game = Game.objects.filter(title='testcategory').first()
+        print(game.release_data)
         self.assertEqual(game.title,'testcategory')
         self.assertEqual(game.description,'description')
         self.assertEqual(game.release_data,123)
@@ -40,3 +45,4 @@ class TestGameModel(TestCase):
         self.assertEqual(game.poster,'testposter/')
         self.assertEqual(game.game_studio,'testStudio')
         self.assertEqual(game.average_review,0)
+        print("=======test Over==========")
