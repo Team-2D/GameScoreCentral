@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from category.models import GameCategory
-from .models import Game
+from .models import Game, GameReview
 from django.contrib.auth import get_user_model
 
 
@@ -28,11 +28,20 @@ class TestGameModel(TestCase):
             posted_by=self.user,
         )
 
+        self.GameReview = GameReview.objects.create(
+            rating=4,
+            comment='test comment',
+            created_by=self.user,
+            game=self.game,
+            created_at='12.1'
+        )
+
     # 测试类销货执行的
     def tearDown(self):
         self.user.delete()
         self.category.delete()
         self.game.delete()
+        self.GameReview.delete()
     #运行得时候执行的
     def test_game_model(self):
         print("=======test Start==========")
@@ -45,4 +54,9 @@ class TestGameModel(TestCase):
         self.assertEqual(game.poster,'testposter/')
         self.assertEqual(game.game_studio,'testStudio')
         self.assertEqual(game.average_review,0)
+        self.assertEqual(GameReview.rating,4)
+        self.assertEqual(GameReview.comment,'test comment')
+        self.assertEqual(GameReview.created_by,self.user)
+        self.assertEqual(GameReview.game,self.game)
+        self.assertEqual(GameReview.created_at,'12.1')
         print("=======test Over==========")

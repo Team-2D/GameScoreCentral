@@ -49,7 +49,7 @@ class TestGamesUrls(TestCase):
     def test_edit_url(self):
         response = self.client.get('/game/editReview/1/')
         print(response)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.statu_code, 200)
 
 
 
