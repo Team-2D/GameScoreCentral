@@ -14,8 +14,8 @@ from account.models import CustomUser
 
 def populate():
     media_url = settings.MEDIA_URL
-    user1 = CustomUser.objects.create_user(username='user1',password='password1')
-    user2 = CustomUser.objects.create_user(username='user2',password='password2')
+    user1 = CustomUser.objects.create_user(username='user1',password='password1', profile_picture=os.path.join(media_url, 'profile_pictures', 'user1.jpg'))
+    user2 = CustomUser.objects.create_user(username='user2',password='password2', profile_picture=os.path.join(media_url, 'profile_pictures', 'user2.jpg'))
 
     rpg_games = [
         {'title': 'The Elder Scrols V: Skyrim',
