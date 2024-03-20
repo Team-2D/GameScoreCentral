@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 # Create your tests here.
 class TestGameModel(TestCase):
-    # 创建得时候执行的
+
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='testName',
@@ -32,17 +32,16 @@ class TestGameModel(TestCase):
             rating=4,
             comment='test comment',
             created_by=self.user,
-            game=self.game,
+            game=self.game(title='testTitle'),
             created_at='12.1'
         )
 
-    # 测试类销货执行的
     def tearDown(self):
         self.user.delete()
         self.category.delete()
         self.game.delete()
         self.GameReview.delete()
-    #运行得时候执行的
+
     def test_game_model(self):
         print("=======test Start==========")
         game = Game.objects.filter(title='testcategory').first()
@@ -57,6 +56,6 @@ class TestGameModel(TestCase):
         self.assertEqual(GameReview.rating,4)
         self.assertEqual(GameReview.comment,'test comment')
         self.assertEqual(GameReview.created_by,self.user)
-        self.assertEqual(GameReview.game,self.game)
+        self.assertEqual(GameReview.game,self.game(title='testTitle'))
         self.assertEqual(GameReview.created_at,'12.1')
         print("=======test Over==========")

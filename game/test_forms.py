@@ -2,9 +2,9 @@ from django.test import TestCase
 from game.forms import GameForm, GameReviewForm, GameSearchForm
 
 
-# 1. 测试表单的有效性
-# 2. 测试字段验证
-# 3. 测试表单与数据库model交互
+# 1. Testing form validation
+# 2. testing field validation
+# 3. Testing Form Interaction with Database Models
 
 
 class GameFormTest(TestCase):
