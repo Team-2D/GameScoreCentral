@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.db.models import Avg
 from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
 from django.contrib.auth.models import AnonymousUser
@@ -53,6 +54,12 @@ def addReview(request, id):
                 review.created_by = request.user
             review.game = game
             review.save()
+
+            #update average rating in game
+            averageRating = review.objects.filter(game=game).aggregate(Avg('rating'))['rating__avg']
+            game.average_review = averageRating
+            game.save()
+
             return redirect('game:viewGame', id=game.id)
     else:
         form = GameReviewForm()
