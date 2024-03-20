@@ -32,8 +32,7 @@ class TestGameModel(TestCase):
             rating=4,
             comment='test comment',
             created_by=self.user,
-            game=self.game(title='testTitle'),
-            created_at='12.1'
+            game=self.game,
         )
 
     def tearDown(self):
@@ -53,9 +52,8 @@ class TestGameModel(TestCase):
         self.assertEqual(game.poster,'testposter/')
         self.assertEqual(game.game_studio,'testStudio')
         self.assertEqual(game.average_review,0)
-        self.assertEqual(GameReview.rating,4)
-        self.assertEqual(GameReview.comment,'test comment')
-        self.assertEqual(GameReview.created_by,self.user)
-        self.assertEqual(GameReview.game,self.game(title='testTitle'))
-        self.assertEqual(GameReview.created_at,'12.1')
+        self.assertEqual(self.GameReview.rating,4)
+        self.assertEqual(self.GameReview.comment,'test comment')
+        self.assertEqual(self.GameReview.created_by,self.user)
+        self.assertEqual(self.GameReview.game,self.game)
         print("=======test Over==========")
