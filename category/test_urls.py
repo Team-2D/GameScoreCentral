@@ -22,8 +22,8 @@ class TestUrls(TestCase):
         self.GameCategory.delete()
 
     def test_game_category(self):
-        exists = GameCategory.objects.filter(title='testTitle').exists()
-        self.assertTrue(exists)
+        exist = GameCategory.objects.filter(title='testTitle').exists()
+        self.assertTrue(exist)
     def test_home_url(self):
         response = self.client.get('/category/')
         self.assertEqual(response.status_code, 200)
