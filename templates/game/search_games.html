@@ -34,4 +34,8 @@ Search games
         </div>
     </div>
 </div>
+<script src="{% static 'base.js' %}">
+    var games = {{ games }};
+    var searchForm = {{ game_search_form }};
+</script>
 {% endblock %}

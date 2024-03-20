@@ -114,6 +114,9 @@ def searchGames(request):
             games = games.filter(query)
         else:
             print("Form Errors:", form.errors) 
+    else:
+        sear
+
 
     
     return render(request, 'game/search_games.html', {'games': games})

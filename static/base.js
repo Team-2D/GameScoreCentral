@@ -20,3 +20,6 @@ function loadReviewBox(games) {
 }
 
 //Code irrelevant just used to figure out JS
+
+
+
