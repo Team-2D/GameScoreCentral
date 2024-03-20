@@ -12,20 +12,21 @@
         />
       </div>
     </div>
-    <div class="col-md-8 rounded pt-3" id='darkBack'>
+    <div class="col-md-8 rounded p-4" id='darkBack'>
       <div class="ml-4">
         <h1>{{ game.title }}</h1>
-        <p>{{ game.description }}</p>
+        <p style='color:white'>{{ game.description }}</p>
         <div class="mt-2">
-          <p>Year of release: {{ game.release_data }}</p>
-          <p>Game Studio: {{ game.game_studio }}</p>
-          <p>Genre: {{ game.category }}</p>
+          <h5>Year of release: <span style = "color:white">{{ game.release_data }}</span></h5>
+          <h5>Game Studio: <span style = "color:white">{{ game.game_studio }}</span></h5>
+          <h5>Genre: <span style = "color:white">{{ game.category }}</span></h5>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row mt-4">
+    <!-- Racing stripes beside rating -->
     <div class="col mt-3">
       <div class="w-100" style="height:5%"></div>
       <div class="w-100" style="height:22.5%" id="pink-block"></div>
@@ -35,10 +36,12 @@
       <div class="w-100" style="height:22.5%" id="pink-block"></div>
       <div class="w-100" style="height:5%"></div>
     </div>
+
+    <!-- Average Rating display box -->
     <div class="col mt-3 p-4 rounded" id='darkBack'>
       <h3 style="color:white">GameScoreCentral Rating</h3>
         <div class='row justify-content-start'>
-          {% if game.average_review != 0 %}
+          {% if other_reviews or user_reviews %}
       <h1>{{ game.average_review }}/10</h1>
       {% else %}
           <h1> No Rating </h1>
@@ -47,13 +50,44 @@
       </div>
   </div>
 
+  {% if user_reviews %}
   <div class="row mt-4">
+    <h2>Your Review</h2>
+      {% for review in user_reviews %}
+        <div class="container rounded row m-2 p-4" id = 'demo'>
+          <div class="card-body col-8">
+            <a href="{% url 'account:viewProfile' review.created_by %}"> <h5 class="card-title">{{ review.created_by }}</h5></a>
+            <p class="card-text">{{ review.rating }}/10</p>
+            <p style="color:white;" class="card-text">{{ review.comment }}</p>
+          </div>
+          <div class="card-body col-3">
+            <p>Created: <br>
+            <span style = "color:white">{{ review.created_at }}</span></p>
+            <p><a class='' href="{% url 'game:editReview' review.id %}"><b>Edit review</b></a></p>
+            <p><a href="{% url 'game:deleteReview' review.id %}"><b>Delete review</b></a></p>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+
+
+  <div class="row mt-4">
+    {% if user_reviews %}
+    <div class="col">
+      <h2>Reviews</h2>
+    {% else %}
+    {% if user.is_authenticated %}
     <div class="col">
       <h2>Reviews &nbsp <a href="{% url 'game:addReview' game.id %}" style="color:white;" class="btn btn-primary" id="buttonMiddle"
-        >Add Review</a
-      ></h2>
-      
-      {% for review in reviews %}
+        >Add Review</a  ></h2>
+        {% else %}
+        <div class="col">
+          <h2>Reviews</h2>
+      {% endif %}
+      {% endif %}
+      {% for review in other_reviews %}
         <div class="container rounded row m-2 p-4" id = 'darkBack'>
           <div class="card-body col-8">
             <a href="{% url 'account:viewProfile' review.created_by %}"> <h5 class="card-title">{{ review.created_by }}</h5></a>

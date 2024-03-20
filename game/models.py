@@ -16,6 +16,15 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def avg_review(self):
+        reviews = GameReview.objects.filter(game=self)
+        if reviews:
+            total_reviews = len(reviews)
+            total_score = sum(review.rating for review in reviews)
+            return round(total_score/total_reviews, 1)
+        else:
+            return 0
 
 class GameReview(models.Model):
     rating = models.IntegerField()

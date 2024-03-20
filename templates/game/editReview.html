@@ -1,0 +1,16 @@
+{% extends 'GameScoreCentral/base.html' %}
+
+{% block title_block %}
+GameScoreCentral
+{% endblock %}
+
+{% block body_block %}
+
+
+
+<form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn btn-primary" id= 'buttonMiddle'>Submit Review</button>
+  </form>
+
+{% endblock %}
