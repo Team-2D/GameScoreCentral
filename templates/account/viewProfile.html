@@ -22,13 +22,10 @@
         <img src="{{ review.game.poster }}" style="max-height: 100%;width:auto;max-width:100%;height:auto">
     </div>
     <div class="col-8" style="color:#ff5eb0">
-        <h5><b> {{ review.game.title }}</b></h5>
-        {% with ''|center:review.rating as range %}
-        {% for _ in range %}
-        ☆
-        {% endfor %}
-        {% endwith %} <br>
+        <a href="{% url 'game:viewGame' review.game.id %}"><h5><b> {{ review.game.title }}</b></h5></a>
         <p style="color:white;">{{ review.comment }}</p>
+        <h5>{{ review.rating }}/10</h5>
+        <p style="text-align:right">Test</p>
     </div>
 
 </div>

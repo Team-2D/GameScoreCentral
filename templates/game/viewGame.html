@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <div style="overflow: hidden; height: 300px; width: 200px">
+      <div style="overflow: hidden; height: 300px; width: 200px; border-color: #251a19; border-style: solid; border-width: medium;">
         <img
           src="{{ game.poster }}"
           class="card-img-top img-fluid"
@@ -12,7 +12,7 @@
         />
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 rounded pt-3" id='darkBack'>
       <div class="ml-4">
         <h1>{{ game.title }}</h1>
         <p>{{ game.description }}</p>
@@ -26,25 +26,45 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col">
-      <a href="{% url 'game:addReview' game.id %}" class="btn btn-primary"
-        >Add Review</a
-      >
+    <div class="col mt-3">
+      <div class="w-100" style="height:5%"></div>
+      <div class="w-100" style="height:22.5%" id="pink-block"></div>
+      <div class="w-100" style="height:11.25%"></div>
+      <div class="w-100" style="height:22.5%" id="pink-block"></div>
+      <div class="w-100" style="height:11.25%"></div>
+      <div class="w-100" style="height:22.5%" id="pink-block"></div>
+      <div class="w-100" style="height:5%"></div>
     </div>
+    <div class="col mt-3 p-4 rounded" id='darkBack'>
+      <h3 style="color:white">GameScoreCentral Rating</h3>
+        <div class='row justify-content-start'>
+          {% if game.average_review != 0 %}
+      <h1>{{ game.average_review }}/10</h1>
+      {% else %}
+          <h1> No Rating </h1>
+      {% endif %}
+            <p style='color:white;font-size:12px;'>({{ game.reviews.count }} reviews)</p>
+      </div>
   </div>
 
   <div class="row mt-4">
     <div class="col">
-      <h2>Reviews</h2>
+      <h2>Reviews &nbsp <a href="{% url 'game:addReview' game.id %}" style="color:white;" class="btn btn-primary" id="buttonMiddle"
+        >Add Review</a
+      ></h2>
+      
       {% for review in reviews %}
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Review</h5>
-          <p class="card-text">{{ review.comment }}</p>
-          <p class="card-text">Rating: {{ review.rating }}</p>
-          <p class="card-text">By: {{ review.created_by }}</p>
+        <div class="container rounded row m-2 p-4" id = 'darkBack'>
+          <div class="card-body col-8">
+            <a href="{% url 'account:viewProfile' review.created_by %}"> <h5 class="card-title">{{ review.created_by }}</h5></a>
+            <p class="card-text">{{ review.rating }}/10</p>
+            <p style="color:white;" class="card-text">{{ review.comment }}</p>
+          </div>
+          <div class="card-body col-3">
+            Created: <br>
+            <span style = "color:white">{{ review.created_at }}</span>
+          </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   </div>

@@ -6,6 +6,7 @@ from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
 from django.contrib.auth.models import AnonymousUser
 from category.models import GameCategory
+from django.db.models import Avg
 
 
 
@@ -52,7 +53,10 @@ def addReview(request, id):
             else:
                 review.created_by = request.user
             review.game = game
+
             review.save()
+            game.average_review = GameReview.objects.filter(game=game).aggregate(Avg("rating"))['rating__avg']
+            game.save()
             return redirect('game:viewGame', id=game.id)
     else:
         form = GameReviewForm()
