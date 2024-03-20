@@ -2,8 +2,8 @@
 {{ game.id }} {% endblock %} {% block body_block %}
 <div class="container">
   <div class="row">
-    <div class="col-md-4 rounded">
-      <div style="overflow: hidden; height: 300px; width: 200px">
+    <div class="col-md-4">
+      <div style="overflow: hidden; height: 300px; width: 200px; border-color: #251a19; border-style: solid; border-width: medium;">
         <img
           src="{{ game.poster }}"
           class="card-img-top img-fluid"
@@ -12,20 +12,20 @@
         />
       </div>
     </div>
-    <div class="col-md-8 rounded" id='darkBack'>
+    <div class="col-md-8 rounded p-4" id='darkBack'>
       <div class="ml-4">
         <h1>{{ game.title }}</h1>
-        <p>{{ game.description }}</p>
+        <p style='color:white'>{{ game.description }}</p>
         <div class="mt-2">
-          <p>Year of release: {{ game.release_data }}</p>
-          <p>Game Studio: {{ game.game_studio }}</p>
-          <p>Genre: {{ game.category }}</p>
+          <h5>Year of release: <span style = "color:white">{{ game.release_data }}</span></h5>
+          <h5>Game Studio: <span style = "color:white">{{ game.game_studio }}</span></h5>
+          <h5>Genre: <span style = "color:white">{{ game.category }}</span></h5>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4 rounded" id='darkBack'>
+  <div class="row mt-4 rounded p-4" id='darkBack'>
     <div class="col mb-4">
       <h2>Add Review</h2>
       <form method="post">
