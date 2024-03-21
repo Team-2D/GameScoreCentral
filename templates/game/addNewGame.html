@@ -6,29 +6,73 @@
 
 {% block body_block %}
 <div class="container">
-    <form id="addNewGame_form" method="post" action="{%url 'game:addNewGame' %}" class="mt-3">
+    <form id="addNewGame_form" method="post" action="{%url 'game:addNewGame' %}" class="mt-3" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="mb-3">
         <label for="id_title" class="form-label">Name of game</label>
-        <input type="text" class="form-control" id="id_title" name="title" value="" size="50">
+        <input type="text" class="form-control" id="id_title" name="title" value="" size="50" required>
+        {% for error in addNewGame_form.title.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
       </div>
       <div class="mb-3">
         <label for="id_poster" class="form-label">upload image here</label>
-        <input type="file" class="form-control" id="id_poster" name="poster" accept="image/*">
+        <input type="file" class="form-control" id="id_poster" name="poster" accept="image/*" required>
+        {% for error in addNewGame_form.poster.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
       </div>
       <div class="mb-3">
-        <label for="id_release_date" class="form-label">Year of Release</label>
-        <input type="text" class="form-control" id="release_date" name="release_date" value="" size="50">
+        <label for="id_release_data" class="form-label">Year of Release</label>
+        <!-- <input type="text" class="form-control" id="release_date" name="release_date" value="" size="50"> -->
+        {{ form.release_data }}
+        {% for error in addNewGame_form.release_date.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
       </div>
       <div class="mb-3">
-        <label for="id_genre" class="form-label">Genre</label>
-        <input type="text" class="form-control" id="category" name="category" value="" size="50">
+        <label for="id_category" class="form-label">Genre</label>
+        <!-- <input type="text" class="form-control" id="id_category" name="category" value="" size="50"> -->
+        {{ form.category }}
+        {% for error in addNewGame_form.category.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <div class="mb-3">
+        <label for="id_game_studio" class="form-label">Game Studio</label>
+        <input type="text" class="form-control" id="id_game_studio" name="game_studio" value="" size="50" required>
+        {% for error in addNewGame_form.game_studio.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
       </div>
       <div class="mb-3">
         <label for="id_description" class="form-label">Description of Game</label>
-        <textarea class="form-control" id="id_description" name="description" rows="5"></textarea>
+        <textarea class="form-control" id="id_description" name="description" rows="5" required></textarea>
+        {% for error in addNewGame_form.description.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+        <!-- {{ form.description }} -->
       </div>
       <button type="submit" class="btn btn-primary btn-lg mx-auto d-block" id="buttonMiddle">ADD GAME</button> 
     </form>
 </div>
+
+<script>
+  document.getElementById("addNewGame_form").addEventListener("submit",function(event) {
+    var form = event.target;
+    var elements = form.elements;
+    var isValid = true;
+
+    for(var i = 0; i <elements.length;i++) {
+      if (elements[i].required && !elements[i].value.trim()) {
+        isValid = false;
+        elements[i].classList.add("is-invalid");
+      }
+    }
+    if(!isValid) {
+      event.preventDefault();
+      alert("Please fill in all the fields.");
+    }
+  });
+</script>
 {% endblock %}
