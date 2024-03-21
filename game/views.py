@@ -6,6 +6,7 @@ from .forms import GameForm, GameReviewForm, GameSearchForm
 from .models import Game, GameReview
 from django.contrib.auth.models import AnonymousUser
 from category.models import GameCategory
+from django.db.models import Avg
 
 
 
@@ -21,8 +22,9 @@ def viewAllGames(request):
 
 def viewGame(request, id):
     game = get_object_or_404(Game,id=id)
-    reviews = GameReview.objects.filter(game=game)
-    context_dict = {'game': game, 'reviews': reviews}
+    user_reviews = GameReview.objects.filter(game=game, created_by=request.user.id)
+    other_reviews = GameReview.objects.filter(game=game).exclude(created_by=request.user.id)
+    context_dict = {'game': game, 'other_reviews': other_reviews, 'user_reviews': user_reviews}
     return render(request, 'game/viewGame.html', context_dict)
 
 
@@ -54,7 +56,10 @@ def addReview(request, id):
             else:
                 review.created_by = request.user
             review.game = game
+
             review.save()
+            game.average_review = game.avg_review()
+            game.save()
             return redirect('game:viewGame', id=game.id)
     else:
         form = GameReviewForm()
@@ -63,13 +68,15 @@ def addReview(request, id):
 
 @login_required
 def editReview(request, review_id):
-    game_id = request.GET.get('game')
     review = get_object_or_404(GameReview, id=review_id, created_by=request.user)
+    game_id = review.game.id
     game = get_object_or_404(Game, id=game_id)  #get Game or return 404 error
     if request.method == 'POST':
         form = GameReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
+            game.average_review = game.avg_review()
+            game.save()
             return redirect('game:viewGame',id=game.id)
     else:
         form = GameReviewForm(instance=review)
@@ -82,7 +89,10 @@ def deleteReview(request, review_id):
     review = get_object_or_404(GameReview, pk=review_id)
     if request.user == review.created_by or request.user.is_staff:  #allows staff to remove reviews
         game_id = review.game.id                                    #get game_id to allow redirect to game after review is deleted
+        game = review.game
         review.delete()
+        game.average_review = game.avg_review()
+        game.save()
         return redirect('game:viewGame', id=game_id)
     else:
         return redirect('game:viewGame')                            #if doesn't have the authority to delete then redirect them to this

@@ -31,9 +31,23 @@ View All Games
                             style="object-fit: cover; width: 100%; height: 100%;">
                     </div>
                     <div class="card-body">
+                        {% if game.average_review %}
+                                {% with ''|center:game.average_review as range %}
+                                {% for _ in range %}
+                                <span style='font-size:12px'id='pink'><b>
+                                ☆
+                            </b></span>
+                                {% endfor %}
+                                {% endwith %}
+                                {% else %}
+                                <span id='pink'><b>
+                                No Rating 
+                            </b></span>
+                                {% endif %}
                         <p class="card-title">
                             {{ game.title }}
                         </p>
+                
                     </div>
                 </div>
             </a>

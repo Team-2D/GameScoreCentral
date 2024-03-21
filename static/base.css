@@ -1,0 +1,132 @@
+body {
+    min-height: 75rem;
+padding-top: 4.5rem;
+}
+#darkBack {
+background-color:#251a19;
+color: #ff5eb0;
+outline-style: solid;
+outline-color: white;
+}
+
+#demo {
+    background-color:#251a19;
+    color: #ff5eb0;
+    outline-style: solid;
+    outline-color: white;
+    }
+
+#js-button {
+    cursor:pointer;
+}
+
+#pinky {
+color: #ff5eb0;
+font-size:30px;
+margin:auto;
+}
+
+#buttonMiddle {
+margin:auto;
+background-color: #ff5eb0;
+border-color: #ff5eb0;
+}
+
+#buttonMiddle:hover{
+margin:auto;
+background-color: #ff5eb1cf;
+border-color: #ff5eb1cf;
+}
+
+#search-title {
+text-align: center;
+}
+
+#main-title {
+text-align: center;
+font-size: 40px;
+}
+
+input {
+font-size: 15px;
+}
+
+.my-search {
+-ms-flex: 0 0 400px;
+flex: 0 0 400px;
+} 
+
+.navbar-brand {
+-ms-flex: 0 0 400px;
+flex: 0 0 400px;
+}
+
+.body-content {
+-ms-flex: 1 1 400px;
+flex: 1 1 400px;
+max-width: 1000px;
+}
+
+.nav-item {
+-ms-flex: 0 0 150px;
+flex: 0 0 150px;
+flex-direction: column-reverse;
+}
+
+
+
+.nav-link {
+color: white;
+}
+
+.image-cropper {
+width: 200px;
+height: 200px;
+position: relative;
+overflow: hidden;
+border-radius: 50%;
+background-color: black;
+}
+
+.image-cropper2 {
+height: 150px;
+width: auto;
+}
+
+img {
+display: inline;
+margin: 0 auto;
+height: 200%;
+width: auto;
+text-align: centre;
+}
+
+.profile-edit p {
+    color: #ff5eb0;
+}
+ 
+a:link {
+    color: #ff5eb0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff5eb1cf;
+}
+
+a:visited {
+    color: #ff5eb0;
+    text-decoration: none;
+}
+
+#pink-block {
+    background-color: #ff5eb0;
+}
+
+#pink {
+    color: #ff5eb0;
+}
+
+:root {
+    --bs-link-color: brown;
+  }

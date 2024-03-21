@@ -36,7 +36,21 @@ GameScoreCentral
                                     style="object-fit: cover; width: 100%; height: 100%;">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ item.title }}</h5>
+                                {% if item.average_review %}
+                                {% with ''|center:item.average_review as range %}
+                                {% for _ in range %}
+                                <span style='font-size:12px'id='pink'><b>
+                                ☆
+                            </b></span>
+                                {% endfor %}
+                                {% endwith %}
+                                {% else %}
+                                <span id='pink'><b>
+                                No Rating 
+                            </b></span>
+                                {% endif %}
+                            
+                            <h5 class="card-title">{{ item.title }}</h5>
                             </div>
                         </div>
                     </a>
@@ -63,8 +77,23 @@ GameScoreCentral
                                     style="object-fit: cover; width: 100%; height: 100%;">
                             </div>
                             <div class="card-body">
+                                    {% if item.average_review %}
+                                    {% with ''|center:item.average_review as range %}
+                                    {% for _ in range %}
+                                    <span style='font-size:12px'id='pink'><b>
+                                    ☆
+                                </b></span>
+                                    {% endfor %}
+                                    {% endwith %}
+                                    {% else %}
+                                    <span id='pink'><b>
+                                    No Rating 
+                                </b></span>
+                                    {% endif %}
+                                
                                 <h5 class="card-title">{{ item.title }}</h5>
                             </div>
+                            
                         </div>
                     </a>
                 </div>

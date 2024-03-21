@@ -10,7 +10,7 @@
 
 <div class="container-fluid row justify-content-center">
     <div class="image-cropper col-12">
-        <img src="/media/{{ user_info.profile_picture }}" class="rounded">
+        <img src="{{ MEDIA_URL }}{{ user_info.profile_picture }}" class="rounded">
     </div>
     <div class="col-12">
         <h2 style="color: #ff5eb0;text-align:center">{{ user_info.username }}</h2>
@@ -27,15 +27,21 @@
         <div class="col-2 image-cropper2">
             <img src="{{ review.game.poster }}" style="max-height: 100%;width:auto;max-width:100%;height:auto">
         </div>
-        <div class="col-8" style="color:#ff5eb0">
-            <h5><b> {{ review.game.title }}</b></h5>
-            {% with ''|center:review.rating as range %}
+        <div class="col-6" style="color:#ff5eb0">
+            <a href="{% url 'game:viewGame' review.game.id %}"><h5><b> {{ review.game.title }}</b></h5></a>
+            <p style="color:white;">{{ review.comment }}</p>
+            <h5>{{ review.rating }}/10 <br>
+                {% with ''|center:review.rating as range %}
             {% for _ in range %}
             ☆
             {% endfor %}
-            {% endwith %} <br>
-            <p style="color:white;">{{ review.comment }}</p>
+            {% endwith %}
+            </h5>
         </div>
+        <div class="card-body col-3" id='pink'>
+            <p>Created: <br>
+            <span style = "color:white">{{ review.created_at }}</span></p>
+          </div>
 
     </div>
     {% endfor %}
