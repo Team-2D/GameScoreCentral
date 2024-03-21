@@ -19,7 +19,7 @@ def populate():
 
     rpg_games = [
         {'title': 'The Elder Scrols V: Skyrim',
-         'description': 'The Elder Scrolls V: Skyrim is a fantasy action role-playing game, playable from either a first- or third-person perspective.',
+         'description': 'The Elder Scrolls V: Skyrim is sprawling fantasy RPG with intresting questlines, epic combat and dark mysteries to uncover',
          'release': 2011,
          'poster': os.path.join(media_url, 'game_posters', 'skyrim.jpg'),
          'game_studio': 'Bethesda',
@@ -27,7 +27,7 @@ def populate():
          'average_review': 9,
         },
         {'title': 'Balders Gate 3',
-         'description': "The game is the third main installment in the Baldur's Gate series, based on the tabletop fantasy role-playing system of Dungeons & Dragons.",
+         'description': "Balders Gate three is a massive DnD inspired RPG that puts true choice in the hands of it's players",
          'release': 2023,
          'poster': os.path.join(media_url, 'game_posters', 'Baldurs.jpg'),
          'game_studio': 'Larian Studios',
@@ -47,7 +47,7 @@ def populate():
 
     fps_games = [
         {'title': 'Call of Duty: Modern Warfare 3',
-         'description': 'Call of Duty: Modern Warfare 3 is a 2011 first-person shooter video game',
+         'description': 'Call of Duty: Modern Warfare 3 has fast paced modern shooting PVP, aswell as a gripping single-player campaign.',
          'release': 2011,
          'poster': os.path.join(media_url, 'game_posters', 'MW3.jpg'),
          'game_studio': 'Infinity Ward',
@@ -65,7 +65,7 @@ def populate():
 
         },
         {'title': 'Doom Eternal',
-         'description': 'Doom Eternal is a first-person shooter straight from hell. slach, shoot and punch through demons in this engergetic sequal to the critically acclaimed Doom (2016)',
+         'description': 'Doom Eternal is a first-person shooter straight from hell. slash, shoot and punch through demons in this engergetic sequal to the critically acclaimed Doom (2016)',
          'release': 2020,
          'poster': os.path.join(media_url, 'game_posters', 'Doom.jpg'),
          'game_studio': 'id Software',
