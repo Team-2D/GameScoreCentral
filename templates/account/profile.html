@@ -30,7 +30,13 @@
         <div class="col-6" style="color:#ff5eb0">
             <a href="{% url 'game:viewGame' review.game.id %}"><h5><b> {{ review.game.title }}</b></h5></a>
             <p style="color:white;">{{ review.comment }}</p>
-            <h5>{{ review.rating }}/10</h5>
+            <h5>{{ review.rating }}/10 <br>
+                {% with ''|center:review.rating as range %}
+            {% for _ in range %}
+            ☆
+            {% endfor %}
+            {% endwith %}
+            </h5>
         </div>
         <div class="card-body col-3" id='pink'>
             <p>Created: <br>
