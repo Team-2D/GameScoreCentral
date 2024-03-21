@@ -1,11 +1,27 @@
 {% extends 'GameScoreCentral/base.html' %}
-
+{% load signup_filters %}
 {% block title_block %}
   Sign Up
 {% endblock %}
 
 {% block body_block %}
 <div class="container">
+  {% if user_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <strong>There were some problems with your submission:</strong>
+    <ul>
+    {% for field, errors in user_form.errors.items %}
+      <li><strong>{{ "Password2"|replace_string:"Password2,Confirm Password" }}:</strong>
+        <ul>
+        {% for error in errors %}
+            <li>{{ error|escape }}</li>
+        {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
   <main class="form-signin w-100 m-auto">
     {% if registered %}
       <h1 class="h3 mb-3 fw-normal">Thank you for registering</h1>

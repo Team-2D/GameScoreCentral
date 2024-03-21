@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
 from .forms import CustomUserCreationForm
 
 
@@ -12,15 +11,18 @@ def signin(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('/')  # redirect to homepage
+                return redirect('/')  # redirect to homepage 
             else:
-                messages.error(request, 'Invalid username or password')
-    else:
-        return render(request, 'GameScoreCentral/signin.html')
+                return HttpResponse("Your account has been deactivated")
+        else:
+            error = "Invalid login details, please try again"
+            context = {"error": error}
+            return render(request, 'GameScoreCentral/signin.html', context)
+    return render(request, 'GameScoreCentral/signin.html')
 
 
 def signup(request):
-    registered = False
+    registered = False  
     if request.method == 'POST':
         # request.FILES is required to handle the profile_picture
         form = CustomUserCreationForm(request.POST, request.FILES)
@@ -28,7 +30,6 @@ def signup(request):
             form.save()
             registered = True
         else:
-            print(form.errors)
             context = {'user_form': form, 'registered': registered}
             return render(request, 'GameScoreCentral/signup.html', context)
     else:
