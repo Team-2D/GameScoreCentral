@@ -4,10 +4,11 @@ from category.models import GameCategory
 
 class GameForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea, max_length=500)
-    release_date = forms.IntegerField(min_value=1900, max_value=2100)
+    release_data = forms.IntegerField(min_value=1900, max_value=2100)
+    category = forms.ModelChoiceField(queryset=GameCategory.objects.all(),empty_label="Select a category")
     class Meta:
         model = Game
-        fields = ('title', 'description', 'release_date', 'poster', 'category', 'game_studio',)
+        fields = ('title', 'description', 'release_data', 'poster', 'category', 'game_studio',)
 
 class GameReviewForm(forms.ModelForm):
     comment = forms.CharField(widget=forms.Textarea, max_length=2000)

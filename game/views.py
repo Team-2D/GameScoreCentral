@@ -37,6 +37,8 @@ def addNewGame(request):
             game.posted_by = request.user   #posted_by is set to current user
             game.save()
             return redirect('game:viewGame', id=game.id)
+        else:
+            print(form.errors)
     else:
         form = GameForm()
     return render(request, 'game/addNewGame.html', {'form': form})
