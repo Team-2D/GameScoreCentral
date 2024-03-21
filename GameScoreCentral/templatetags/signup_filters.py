@@ -4,4 +4,4 @@ register = template.Library()
 @register.filter
 def replace_string(value,arg):
     original, new = arg.split(",")
-    return value.replace(original, new)
+    return value.replace(original, new) if value == original else value

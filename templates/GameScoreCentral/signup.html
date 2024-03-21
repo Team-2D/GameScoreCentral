@@ -11,7 +11,16 @@
     <strong>There were some problems with your submission:</strong>
     <ul>
     {% for field, errors in user_form.errors.items %}
-      <li><strong>{{ "Password2"|replace_string:"Password2,Confirm Password" }}:</strong>
+      <li>
+      {% if field == "password2" %}
+        <strong>{{ field|capfirst|replace_string:"Password2,Confirm Password" }}:</strong> 
+      {% endif %}
+      {% if field == "password1" %}
+        <strong>{{ field|capfirst|replace_string:"Password1,Password" }}:</strong>
+      {% endif %}
+      {% if field == "username" %}
+        <strong>{{ field|capfirst|replace_string:"Username,Username" }}:</strong>
+      {% endif %}
         <ul>
         {% for error in errors %}
             <li>{{ error|escape }}</li>
