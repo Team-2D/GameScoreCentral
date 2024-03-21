@@ -57,7 +57,13 @@
         <div class="container rounded row m-2 p-4" id = 'demo'>
           <div class="card-body col-8">
             <a href="{% url 'account:viewProfile' review.created_by %}"> <h5 class="card-title">{{ review.created_by }}</h5></a>
-            <p class="card-text">{{ review.rating }}/10</p>
+            <p class="card-text">{{ review.rating }}/10 <br>
+            {% with ''|center:review.rating as range %}
+            {% for _ in range %}
+            ☆
+            {% endfor %}
+            {% endwith %}
+            </p>
             <p style="color:white;" class="card-text">{{ review.comment }}</p>
           </div>
           <div class="card-body col-3">
@@ -91,7 +97,13 @@
         <div class="container rounded row m-2 p-4" id = 'darkBack'>
           <div class="card-body col-8">
             <a href="{% url 'account:viewProfile' review.created_by %}"> <h5 class="card-title">{{ review.created_by }}</h5></a>
-            <p class="card-text">{{ review.rating }}/10</p>
+            <p class="card-text">{{ review.rating }}/10 <br>
+            {% with ''|center:review.rating as range %}
+            {% for _ in range %}
+            ☆
+            {% endfor %}
+            {% endwith %}
+            </p>
             <p style="color:white;" class="card-text">{{ review.comment }}</p>
           </div>
           <div class="card-body col-3">
